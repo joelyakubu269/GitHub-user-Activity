@@ -12,7 +12,7 @@ func fetchApi(username string) ([]Event, error) {
 	flag.StringVar(&usernam, "user", "", "github username to lookup info on.")
 	flag.Parse()
 
-	url := fmt.Sprintf("https://api.github.com/users/%s/events", username)
+	url := fmt.Sprintf("https://api.github.com/users/%s/commits", username)
 	resp, err := http.Get(url)
 	if err != nil {
 
