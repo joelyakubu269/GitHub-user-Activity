@@ -12,7 +12,7 @@ func main() {
 	flag.BoolVar(&logEnabled, "useloud", false, "set to enable verbose logging")
 	flag.IntVar(&maxEvents, "maxevents", 5, "limit maximum nummber of events printed")
 	flag.Parse()
-	if flag.NArg() > 0 {
+	if flag.NArg() > 0 { // checks for unexpected arguements(not flags)
 		fmt.Println("no arguements expected")
 		return
 	}
@@ -22,14 +22,14 @@ func main() {
 		return
 	}
 	if len(events) > maxEvents {
-		events = events[len(events)-5:]
+		events = events[len(events)-maxEvents:]
 	}
 	printEvent(events)
 }
 
 var logEnabled bool
 
-func logstuff(args ...any) {
+func logstuff(args ...any) { // use for optional debugging
 	if logEnabled {
 		fmt.Println(args...)
 	}

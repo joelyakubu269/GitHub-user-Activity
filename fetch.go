@@ -14,7 +14,7 @@ func fetchApi(username string) ([]Event, error) {
 
 		return nil, err
 	}
-	logstuff(resp.StatusCode)
+	logstuff(resp.StatusCode) // optional debugging to check the status code
 	var events []Event
 	err = json.NewDecoder(resp.Body).Decode(&events)
 	resp.Body.Close()
