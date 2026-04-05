@@ -2,15 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"net/http"
 )
 
 func fetchApi(username string) ([]Event, error) {
-	var usernam string
-	flag.StringVar(&usernam, "user", "", "github username to lookup info on.")
-	flag.Parse()
 
 	url := fmt.Sprintf("https://api.github.com/users/%s/events", username)
 	resp, err := http.Get(url)
@@ -18,10 +14,10 @@ func fetchApi(username string) ([]Event, error) {
 
 		return nil, err
 	}
-	fmt.Println(resp.StatusCode)
-	defer resp.Body.Close()
+	logstuff(resp.StatusCode)
 	var events []Event
 	err = json.NewDecoder(resp.Body).Decode(&events)
+	resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
